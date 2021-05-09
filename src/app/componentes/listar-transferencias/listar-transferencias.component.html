@@ -1,0 +1,26 @@
+<h1 style="margin-top: 10px;">Listado de Transferencias</h1>
+<table *ngIf="transferencias && transferencias.length > 0" mat-table [dataSource]="transferencias" class="mat-elevation-z8" style="width: 100%; margin-top: 10px;">
+    <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let transferencia">{{transferencia.nombre}}</td>
+    </ng-container>
+    <ng-container matColumnDef="rut">
+        <th mat-header-cell *matHeaderCellDef>RUT</th>
+        <td mat-cell *matCellDef="let transferencia">{{transferencia.rut}}</td>
+    </ng-container>
+    <ng-container matColumnDef="banco">
+        <th mat-header-cell *matHeaderCellDef>Banco</th>
+        <td mat-cell *matCellDef="let transferencia">{{transferencia.banco}}</td>
+    </ng-container>
+    <ng-container matColumnDef="tipo">
+        <th mat-header-cell *matHeaderCellDef>Tipo de Cuenta</th>
+        <td mat-cell *matCellDef="let transferencia">{{transferencia.tipo}}</td>
+    </ng-container>
+    <ng-container matColumnDef="monto">
+        <th mat-header-cell *matHeaderCellDef>Monto</th>
+        <td mat-cell *matCellDef="let transferencia">{{transferencia.monto}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<h2 *ngIf="transferencias && transferencias.length <= 0">No hay transferencias registradas</h2>

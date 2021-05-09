@@ -1,0 +1,66 @@
+<div style="padding: 10px;">
+  <h1>Nuevo Destinatario</h1>
+  <div style="padding: 10px;">
+    <div *ngIf="!submitted">
+      <div style="padding: 10px;">
+        <label for="rut">RUT: </label>
+        <input type="text" class="form-control" id="rut" required minlength="6" [(ngModel)]="destinatario.rut"
+          name="rut" (blur)="validarRut(destinatario.rut)" [placeholder]="placeholder"/>
+        <p *ngIf="!rutValido && destinatario.rut && destinatario.rut.length > 0" style="color: red;">RUT Invalido</p>
+      </div>
+
+      <div style="padding: 10px;">
+        <label for="nombre">Nombre: </label>
+        <input type="text" class="form-control" id="nombre" required [(ngModel)]="destinatario.nombre" name="nombre" />
+      </div>
+      <div style="padding: 10px;">
+        <label for="correo">Correo: </label>
+        <input type="email" class="form-control" id="correo" required [(ngModel)]="destinatario.correo" name="correo"
+          (blur)="validarEmail()" />
+        <p *ngIf="!correoValido && destinatario.correo && destinatario.correo.length > 0" style="color: red;">Correo
+          Invalido</p>
+
+      </div>
+      <div style="padding: 10px;">
+        <label for="telefono">Telefono: </label>
+        <input type="number" class="form-control" id="telefono" required [(ngModel)]="destinatario.telefono"
+          name="telefono" />
+      </div>
+      <div style="padding: 10px;">
+        <mat-form-field>
+          <mat-label>Banco: </mat-label>
+          <select *ngIf="bancos" matNativeControl required name="banco" id="banco"
+            [(ngModel)]="destinatario.banco">
+            <option [ngValue]="null">Seleccione un banco</option>
+            <option *ngFor="let banco of bancos.banks" [ngValue]="banco.name">{{banco.name}}</option>
+          </select>
+        </mat-form-field>
+      </div>
+      <div style="padding: 10px;">
+        <mat-form-field>
+          <mat-label>Tipo de Cuenta: </mat-label>
+          <select matNativeControl required name="tipoCuenta" id="tipoCuenta"
+            [(ngModel)]="destinatario.tipoCuenta">
+            <option [ngValue]="null">Seleccione un tipo de cuenta</option>
+            <option *ngFor="let tipoCuenta of tiposCuenta" [ngValue]="tipoCuenta">{{tipoCuenta}}</option>
+          </select>
+        </mat-form-field>
+      </div>
+      <div style="padding: 10px;">
+        <label for="numeroCuenta">N° Cuenta: </label>
+        <input type="number" class="form-control" id="numeroCuenta" required [(ngModel)]="destinatario.numeroCuenta"
+          name="numeroCuenta" />
+      </div>
+      <div style="padding: 10px;">
+      <button (click)="guardarDestinatario()" >Enviar</button>
+    </div>
+      <p *ngIf="!camposValidos" style="color: red;">Debe completar todos los campos</p>
+      <p *ngIf="msjError" style="color: red;">Ocurrió un error al guardar destinatario</p>
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>destinatario fue ingresado</h4>
+      <button  (click)="nuevoDestinatario()">Agregar</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div style="margin-top: 10px; padding: 10px;">
+    <h1>Realizar Transferencia</h1>
+    <div style="padding: 10px;" *ngIf="destinatarios && destinatarios.length > 0">
+        <div *ngIf="!submitted">
+            <div>
+                <label for="nombre">Buscar destinatario por nombre: </label>
+                <input type="text" id="nombre" required [(ngModel)]="destinatario.nombre" name="nombre"
+                    (keyup)="buscarDestinatario(destinatario.nombre)" />
+            </div>
+            <div *ngIf="destinatario.nombre.length > 0 && matches > 0" style="margin-bottom: 10px;">
+                <li *ngFor="let dest of destinatariosFiltrados" (click)="seleccionarDestinatario(dest)"
+                    style="cursor: pointer;">
+                    {{dest.nombre}}
+                </li>
+            </div>
+            <div *ngIf="seleccionado" style="margin-top: 20px;">
+                <h2 style="margin-bottom: 5px; margin-top: 10px;">Detalles del destinatario:</h2>
+                <div style="padding: 5px;">
+                    <b>RUT: </b> {{destinatario.rut}}
+                </div>
+                <div style="padding: 5px;">
+                    <b>Nombre: </b> {{destinatario.nombre}}
+                </div>
+                <div style="padding: 5px;">
+                    <b>Correo: </b> {{destinatario.correo}}
+                </div>
+                <div style="padding: 5px;">
+                    <b>Telefono: </b> {{destinatario.telefono}}</div>
+                <div style="padding: 5px;">
+                    <b>Banco: </b> {{destinatario.banco}}
+                </div>
+                <div style="padding: 5px;">
+                    <b>Tipo Cuenta: </b> {{destinatario.tipoCuenta}}
+                </div>
+                <div style="padding: 5px;">
+                    <b>N° Cuenta: </b> {{destinatario.numeroCuenta}}
+                </div>
+                <div style="padding: 5px;">
+                    <b>Monto a transferir: </b><input id="montoTransferencia" type="number" required
+                        [(ngModel)]="montoTransferencia" name="montoTransferencia" />
+                </div>
+                <div style="padding: 5px;">
+                    <button id="transferir" type="submit" (click)="enviarTransferencia()"
+                        [disabled]="montoTransferencia <= 0 || montoTransferencia == null">Enviar
+                        Transferencia</button>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="submitted">
+            <h4>transferencia enviada</h4>
+            <button (click)="nuevaTransferencia()">Transferir otra vez</button>
+        </div>
+
+    </div>
+    <div *ngIf="destinatarios && destinatarios.length <= 0">
+        <h2>Debe agregar al menos un destinatario antes de transferir</h2>
+    </div>
+</div>
